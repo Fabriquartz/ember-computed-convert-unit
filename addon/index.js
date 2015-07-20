@@ -44,7 +44,7 @@ const CONVERSION_MAP = {
 };
 
 export default function(value, fromUnit, toUnit) {
-  if (value === null) { return value; }
+  if (value == null) { return value; }
   if (typeof value !== 'number') {
     throw new Ember.Error('Input to conversion function must be a number');
   }
