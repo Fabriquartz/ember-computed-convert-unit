@@ -32,7 +32,7 @@ const CONVERSION_MAP = {
   },
   'minutes': {
     'hours':         function(value) { return value / 60.0; },
-    'milliseconds':  function(value) { return value / 60000.0; },
+    'milliseconds':  function(value) { return value * 60000.0; },
     'seconds':       function(value) { return value * 60.0; }
   },
   'teu': {
