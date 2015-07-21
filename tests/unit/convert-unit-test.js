@@ -65,6 +65,18 @@ test('milliseconds to hours', function(assert) {
   assert.equal(convertUnit(9000000, 'milliseconds', 'hours'), 2.5);
 });
 
+test('seconds to milliseconds', function(assert) {
+  assert.equal(convertUnit(2.5, 'seconds', 'milliseconds'), 2500);
+});
+
+test('seconds to minutes', function(assert) {
+  assert.equal(convertUnit(150, 'seconds', 'minutes'), 2.5);
+});
+
+test('seconds to hours', function(assert) {
+  assert.equal(convertUnit(9000, 'seconds', 'hours'), 2.5);
+});
+
 test('minutes to milliseconds', function(assert) {
   assert.equal(convertUnit(2.5, 'minutes', 'milliseconds'), 150000);
 });

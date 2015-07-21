@@ -35,6 +35,11 @@ const CONVERSION_MAP = {
     'milliseconds':  function(value) { return value * 60000.0; },
     'seconds':       function(value) { return value * 60.0; }
   },
+  'seconds': {
+    'milliseconds':  function(value) { return value * 1000; },
+    'minutes':       function(value) { return value / 60; },
+    'hours':         function(value) { return value / 3600; }
+  },
   'teu': {
     'feet':          function(value) { return value * 20.0; }
   },
