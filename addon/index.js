@@ -1,58 +1,74 @@
 import Ember from 'ember';
 
+const MILLIMETERS = 1;
+const CENTIMETERS = 10 * MILLIMETERS;
+const METERS      = 100 * CENTIMETERS;
+const KILOMETERS  = 1000 * METERS;
+
+const MILLISECONDS = 1;
+const SECONDS      = 1000 * MILLISECONDS;
+const MINUTES      = 60 * SECONDS;
+const HOURS        = 60 * MINUTES;
+
+const KILOS = 1;
+const TONS  = 1000 * KILOS;
+
+const FEET = 1;
+const TEU  = 20 * FEET;
+
 const CONVERSION_MAP = {
   // Please sort on alphabetic order, thank you!
   'centimeters': {
-    'kilometers':    (value) => value / 100000.0,
-    'meters':        (value) => value / 100.0,
-    'millimeters':   (value) => value * 10.0
+    'kilometers':    (value) => value * CENTIMETERS / KILOMETERS,
+    'meters':        (value) => value * CENTIMETERS / METERS,
+    'millimeters':   (value) => value * CENTIMETERS
   },
   'feet': {
-    'teu':           (value) => value / 20.0
+    'teu':           (value) => value / TEU
   },
   'hours': {
-    'milliseconds':  (value) => value * 3600000,
-    'minutes':       (value) => value * 60.0,
-    'seconds':       (value) => value * 3600.0
+    'milliseconds':  (value) => value * HOURS,
+    'minutes':       (value) => value * HOURS / MINUTES,
+    'seconds':       (value) => value * HOURS / SECONDS
   },
   'kilometers': {
-    'centimeters':   (value) => value * 100000,
-    'meters':        (value) => value * 1000,
-    'millimeters':   (value) => value * 1000000
+    'centimeters':   (value) => value * KILOMETERS / CENTIMETERS,
+    'meters':        (value) => value * KILOMETERS / METERS,
+    'millimeters':   (value) => value * KILOMETERS
   },
   'kilos': {
-    'tons':          (value) => value / 1000.0
+    'tons':          (value) => value / TONS
   },
   'meters': {
-    'centimeters':   (value) => value * 100,
-    'kilometers':    (value) => value / 1000,
-    'millimeters':   (value) => value * 1000
+    'centimeters':   (value) => value * METERS / CENTIMETERS,
+    'kilometers':    (value) => value * METERS / KILOMETERS,
+    'millimeters':   (value) => value * METERS
   },
   'millimeters': {
-    'centimeters':   (value) => value / 10.0,
-    'kilometers':    (value) => value / 1000000.0,
-    'meters':        (value) => value / 1000.0
+    'centimeters':   (value) => value / CENTIMETERS,
+    'kilometers':    (value) => value / KILOMETERS,
+    'meters':        (value) => value / METERS
   },
   'milliseconds': {
-    'hours':         (value) => value / 3600000.0,
-    'minutes':       (value) => value / 60000.0,
-    'seconds':       (value) => value / 1000.0
+    'hours':         (value) => value / HOURS,
+    'minutes':       (value) => value / MINUTES,
+    'seconds':       (value) => value / SECONDS
   },
   'minutes': {
-    'hours':         (value) => value / 60.0,
-    'milliseconds':  (value) => value * 60000.0,
-    'seconds':       (value) => value * 60.0
+    'hours':         (value) => value * MINUTES / HOURS,
+    'milliseconds':  (value) => value * MINUTES,
+    'seconds':       (value) => value * MINUTES / SECONDS
   },
   'seconds': {
-    'milliseconds':  (value) => value * 1000,
-    'minutes':       (value) => value / 60,
-    'hours':         (value) => value / 3600
+    'milliseconds':  (value) => value * SECONDS,
+    'minutes':       (value) => value * SECONDS / MINUTES,
+    'hours':         (value) => value * SECONDS / HOURS
   },
   'teu': {
-    'feet':          (value) => value * 20.0
+    'feet':          (value) => value * TEU
   },
   'tons': {
-    'kilos':         (value) => value * 1000
+    'kilos':         (value) => value * TONS
   }
 };
 
