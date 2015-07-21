@@ -3,6 +3,7 @@ import Ember from 'ember';
 const CONVERSION_MAP = {
   // Please sort on alphabetic order, thank you!
   'centimeters': {
+    'kilometers':    function(value) { return value / 100000.0; },
     'meters':        function(value) { return value / 100.0; },
     'millimeters':   function(value) { return value * 10.0; }
   },
@@ -14,15 +15,22 @@ const CONVERSION_MAP = {
     'minutes':       function(value) { return value * 60.0; },
     'seconds':       function(value) { return value * 3600.0; }
   },
+  'kilometers': {
+    'centimeters':   function(value) { return value * 100000; },
+    'meters':        function(value) { return value * 1000; },
+    'millimeters':   function(value) { return value * 1000000; }
+  },
   'kilos': {
     'tons':          function(value) { return value / 1000.0; }
   },
   'meters': {
     'centimeters':   function(value) { return value * 100; },
+    'kilometers':    function(value) { return value / 1000; },
     'millimeters':   function(value) { return value * 1000; }
   },
   'millimeters': {
     'centimeters':   function(value) { return value / 10.0; },
+    'kilometers':    function(value) { return value / 1000000.0; },
     'meters':        function(value) { return value / 1000.0; }
   },
   'milliseconds': {
@@ -58,6 +66,6 @@ export default function(value, fromUnit, toUnit) {
     return CONVERSION_MAP[fromUnit][toUnit](value);
   } else {
     throw new Ember.Error('Conversion from ' + fromUnit + ' to ' +
-                                               toUnit + 'not available');
+                                               toUnit + ' not available');
   }
 }

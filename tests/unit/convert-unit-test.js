@@ -29,6 +29,10 @@ test('millimeters to meters', function(assert) {
   assert.equal(convertUnit(2500, 'millimeters', 'meters'), 2.5);
 });
 
+test('millimeters to kilometers', function(assert) {
+  assert.equal(convertUnit(2500000, 'millimeters', 'kilometers'), 2.5);
+});
+
 test('centimeters to millimeters', function(assert) {
   assert.equal(convertUnit(2.5, 'centimeters', 'millimeters'), 25);
 });
@@ -37,12 +41,32 @@ test('centimeters to meters', function(assert) {
   assert.equal(convertUnit(250, 'centimeters', 'meters'), 2.5);
 });
 
+test('centimeters to kilometers', function(assert) {
+  assert.equal(convertUnit(250000, 'centimeters', 'kilometers'), 2.5);
+});
+
 test('meters to millimeters', function(assert) {
   assert.equal(convertUnit(2.5, 'meters', 'millimeters'), 2500);
 });
 
 test('meters to centimeters', function(assert) {
   assert.equal(convertUnit(2.5, 'meters', 'centimeters'), 250);
+});
+
+test('meters to kilometers', function(assert) {
+  assert.equal(convertUnit(2500, 'meters', 'kilometers'), 2.5);
+});
+
+test('kilometers to millimeters', function(assert) {
+  assert.equal(convertUnit(2.5, 'kilometers', 'millimeters'), 2500000);
+});
+
+test('kilometers to centimeters', function(assert) {
+  assert.equal(convertUnit(2.5, 'kilometers', 'centimeters'), 250000);
+});
+
+test('kilometers to meters', function(assert) {
+  assert.equal(convertUnit(2.5, 'kilometers', 'meters'), 2500);
 });
 
 test('feet to teu', function(assert) {
