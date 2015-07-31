@@ -3,7 +3,7 @@ import { test } from 'ember-qunit';
 
 import convertUnit from 'ember-railio-convert-unit';
 
-qUnit.module('Unit: Convert Unit');
+qUnit.module('Unit | Convert Unit');
 
 test('null value', function(assert) {
   assert.equal(convertUnit(null, 'kilos', 'tons'), null);

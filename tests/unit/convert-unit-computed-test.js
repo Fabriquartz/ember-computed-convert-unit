@@ -4,7 +4,7 @@ import { test } from 'ember-qunit';
 import Ember from 'ember';
 import convertUnitComputed from 'ember-railio-convert-unit/computed';
 
-qUnit.module('Unit: Convert Unit Computed Property');
+qUnit.module('Unit | Convert Unit Computed Property');
 
 const Rock = Ember.Object.extend({
   kilos: null,
