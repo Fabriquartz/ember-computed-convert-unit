@@ -12,7 +12,7 @@ export default function(prop, fromUnit, toUnit) {
     set: function(key, value) {
       const converted = convertUnit(value, toUnit, fromUnit);
       this.set(prop, converted);
-      return converted;
+      return value;
     }
   });
 }
