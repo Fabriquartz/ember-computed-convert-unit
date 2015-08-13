@@ -20,7 +20,7 @@
   "devDependencies": {
     "broccoli-asset-rev": "^2.0.2",
     "broccoli-jscs": "0.0.22",
-    "ember-cli": "0.2.7",
+    "ember-cli": "^1.13.8",
     "ember-cli-app-version": "0.3.3",
     "ember-cli-blanket": "0.5.3",
     "ember-cli-content-security-policy": "0.4.0",
