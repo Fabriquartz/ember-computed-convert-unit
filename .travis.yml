@@ -1,13 +1,26 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "6.9.1"
 
-sudo: false
+dist: trusty
+sudo: true
+
+addons:
+  apt:
+    source:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 cache:
   directories:
-    - node_modules
+    - $HOME/.npm
+    - $HOME/.cache # includes bowers cache
+
+branches:
+  only:
+    - master
 
 env:
   - EMBER_TRY_SCENARIO=default
@@ -18,17 +31,21 @@ env:
 matrix:
   fast_finish: true
   allow_failures:
+    - env: EMBER_TRY_SCENARIO=ember-beta
     - env: EMBER_TRY_SCENARIO=ember-canary
 
 before_install:
-  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
   - "npm config set spin false"
   - "npm install -g npm@^2"
+  - npm config set spin false
+  - npm install -g bower
+  - bower --version
 
 install:
-  - npm install -g bower
   - npm install
   - bower install
 
 script:
-  - ember try $EMBER_TRY_SCENARIO test
+  - ember try:one $EMBER_TRY_SCENARIO test --skip-cleanup

@@ -1,5 +1,7 @@
 import Ember from 'ember';
 
+const { Error } = Ember;
+
 const MILLIMETERS = 1;
 const CENTIMETERS = 10 * MILLIMETERS;
 const METERS      = 100 * CENTIMETERS;
@@ -17,6 +19,7 @@ const FEET = 1;
 const TEU  = 20 * FEET;
 
 const CONVERSION_MAP = {
+  /* eslint-disable key-spacing */
   // Please sort on alphabetic order, thank you!
   'centimeters': {
     'kilometers':    (value) => value * CENTIMETERS / KILOMETERS,
@@ -70,18 +73,18 @@ const CONVERSION_MAP = {
   'tons': {
     'kilos':         (value) => value * TONS
   }
+  /* eslint-enable key-spacing */
 };
 
 export default function(value, fromUnit, toUnit) {
   if (value == null) { return value; }
   if (typeof value !== 'number') {
-    throw new Ember.Error('Input to conversion function must be a number');
+    throw new Error('Input to conversion function must be a number');
   }
 
   if (CONVERSION_MAP[fromUnit] && CONVERSION_MAP[fromUnit][toUnit]) {
     return CONVERSION_MAP[fromUnit][toUnit](value);
   } else {
-    throw new Ember.Error('Conversion from ' + fromUnit + ' to ' +
-                                               toUnit + ' not available');
+    throw new Error(`Conversion from ${fromUnit} to ${toUnit} not available`);
   }
 }
