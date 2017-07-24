@@ -11,14 +11,14 @@ test('null value', function(assert) {
 
 test('not a number', function(assert) {
   assert.throws(() => { convertUnit('String', 'kilos', 'tons'); },
-   /Input to conversion function must be a number/,
-   'raised error when not a number');
+    /Input to conversion function must be a number/,
+    'raised error when not a number');
 });
 
 test('not existing conversion', function(assert) {
   assert.throws(() => { convertUnit(250, 'measurement', 'tons'); },
-   /not available/,
-   'raised error when unit not available');
+    /not available/,
+    'raised error when unit not available');
 });
 
 test('millimeters to centimeters', function(assert) {
