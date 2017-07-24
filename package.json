@@ -1,6 +1,6 @@
 {
   "name": "ember-railio-convert-unit",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Addon for converting units.",
   "directories": {
     "doc": "doc",
