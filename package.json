@@ -3,7 +3,6 @@
   "version": "0.0.17",
   "description": "Addon for converting units.",
   "scripts": {
-    "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember server",
     "build": "ember build",
