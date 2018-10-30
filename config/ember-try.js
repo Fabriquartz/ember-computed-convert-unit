@@ -21,7 +21,8 @@ module.exports = function() {
               '@ember/jquery': '^0.5.1',
               'ember-source':  '~2.16.0'
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-lts-2.18',
@@ -33,7 +34,8 @@ module.exports = function() {
               '@ember/jquery': '^0.5.1',
               'ember-source':  '~2.18.0'
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-release',
@@ -41,7 +43,8 @@ module.exports = function() {
             devDependencies: {
               'ember-source': urls[0]
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-beta',
@@ -49,7 +52,8 @@ module.exports = function() {
             devDependencies: {
               'ember-source': urls[1]
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-canary',
@@ -57,13 +61,15 @@ module.exports = function() {
             devDependencies: {
               'ember-source': urls[2]
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-default',
           npm:  {
             devDependencies: {}
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-default-with-jquery',
@@ -76,7 +82,8 @@ module.exports = function() {
             devDependencies: {
               '@ember/jquery': '^0.5.1'
             }
-          }
+          },
+          bower: {}
         }
       ]
     };
