@@ -36,6 +36,7 @@ jobs:
     - stage: "Linting"
       name: "Linting"
       install:
+        - yarn cache clean
         - yarn install --non-interactive
       script:
         - yarn lint:js
@@ -43,6 +44,7 @@ jobs:
     - stage: "Current version"
       name: "Current version"
       install:
+        - yarn cache clean
         - yarn install --non-interactive
       script:
         - yarn test
