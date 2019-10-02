@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2017,
+    ecmaVersion: 2018,
     sourceType: 'module'
   },
   extends: [
@@ -13,8 +13,10 @@ module.exports = {
     browser: true,
     es6: true
   },
+  plugins: ['ember'],
   rules: {
     "array-bracket-spacing": "off",
+    'ember/no-jquery':       "error",
     "object-curly-spacing":  ["error", "always"],
 
     "quotes":      ["error", "single", { allowTemplateLiterals: true }],
@@ -48,8 +50,7 @@ module.exports = {
         'tests/dummy/app/**'
       ],
       parserOptions: {
-        sourceType: 'script',
-        ecmaVersion: 2015
+        sourceType: 'script'
       },
       env: {
         browser: false,
