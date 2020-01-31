@@ -1,6 +1,6 @@
 {
   "name": "ember-computed-convert-unit",
-  "version": "0.0.22",
+  "version": "1.0.0",
   "description": "Use convert unit as computed property or decorator",
   "keywords": [
     "ember-addon"
