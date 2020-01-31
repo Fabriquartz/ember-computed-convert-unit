@@ -1,134 +1,124 @@
-import qUnit  from 'qunit';
-import { test } from 'ember-qunit';
+import { setOwner }     from '@ember/application';
+import EmberObject      from '@ember/object';
+import { setupTest }    from 'ember-qunit';
+import convertUnit      from 'ember-railio-convert-unit';
+import { module, test } from 'qunit';
 
-import convertUnit from 'ember-railio-convert-unit';
+module('Unit | Convert unit', function(hooks) {
+  setupTest(hooks);
 
-qUnit.module('Unit | Convert Unit');
+  module('Converts (old style Ember)', function() {
+    let Rock = EmberObject.extend({
+      millimeters: null,
+      centimeters: convertUnit('millimeters', 'millimeters', 'centimeters')
+    });
 
-test('null value', function(assert) {
-  assert.equal(convertUnit(null, 'kilos', 'tons'), null);
-});
+    test('converts the units', function(assert) {
+      let rock = Rock.create({ millimeters: 25 });
+      setOwner(rock, this.owner);
 
-test('not a number', function(assert) {
-  assert.throws(() => { convertUnit('String', 'kilos', 'tons'); },
-    /Input to conversion function must be a number/,
-    'raised error when not a number');
-});
+      assert.equal(rock.get('centimeters'), 2.5);
+    });
 
-test('not existing conversion', function(assert) {
-  assert.throws(() => { convertUnit(250, 'measurement', 'tons'); },
-    /not available/,
-    'raised error when unit not available');
-});
+    test('can set the converted unit', function(assert) {
+      let rock = Rock.create({ millimeters: 1000 });
+      setOwner(rock, this.owner);
 
-test('millimeters to centimeters', function(assert) {
-  assert.equal(convertUnit(25, 'millimeters', 'centimeters'), 2.5);
-});
+      rock.set('centimeters', 4.8);
+      assert.equal(rock.get('millimeters'), 48);
+    });
 
-test('millimeters to meters', function(assert) {
-  assert.equal(convertUnit(2500, 'millimeters', 'meters'), 2.5);
-});
+    Rock = EmberObject.extend({
+      millimeters: null,
+      centimeters: convertUnit('millimeters', 'mm', 'cm')
+    });
 
-test('millimeters to kilometers', function(assert) {
-  assert.equal(convertUnit(2500000, 'millimeters', 'kilometers'), 2.5);
-});
+    test('converts the units', function(assert) {
+      let rock = Rock.create({ millimeters: 25 });
+      setOwner(rock, this.owner);
 
-test('centimeters to millimeters', function(assert) {
-  assert.equal(convertUnit(2.5, 'centimeters', 'millimeters'), 25);
-});
+      assert.equal(rock.get('centimeters'), 2.5);
+    });
 
-test('centimeters to meters', function(assert) {
-  assert.equal(convertUnit(250, 'centimeters', 'meters'), 2.5);
-});
+    test('can set the converted unit', function(assert) {
+      let rock = Rock.create({ millimeters: 1000 });
+      setOwner(rock, this.owner);
 
-test('centimeters to kilometers', function(assert) {
-  assert.equal(convertUnit(250000, 'centimeters', 'kilometers'), 2.5);
-});
+      rock.set('centimeters', 4.8);
+      assert.equal(rock.get('millimeters'), 48);
+    });
+  }),
+  module('Converts (new style Ember)', function() {
+    class Paper extends EmberObject {
+        millimeters;
 
-test('meters to millimeters', function(assert) {
-  assert.equal(convertUnit(2.5, 'meters', 'millimeters'), 2500);
-});
+        @convertUnit('millimeters', 'millimeters', 'cm')
+        centimeters;
+    }
 
-test('meters to centimeters', function(assert) {
-  assert.equal(convertUnit(2.5, 'meters', 'centimeters'), 250);
-});
+    test('Get converted', function(assert) {
+      let paper = Paper.create({ millimeters: 25 });
+      setOwner(paper, this.owner);
 
-test('meters to kilometers', function(assert) {
-  assert.equal(convertUnit(2500, 'meters', 'kilometers'), 2.5);
-});
+      assert.equal(paper.get('centimeters'), 2.5);
+    });
 
-test('kilometers to millimeters', function(assert) {
-  assert.equal(convertUnit(2.5, 'kilometers', 'millimeters'), 2500000);
-});
+    test('Set converted', function(assert) {
+      let paper = Paper.create({ millimeters: 1000 });
+      setOwner(paper, this.owner);
 
-test('kilometers to centimeters', function(assert) {
-  assert.equal(convertUnit(2.5, 'kilometers', 'centimeters'), 250000);
-});
+      paper.set('centimeters', 4.8);
+      assert.equal(paper.get('millimeters'), 48);
+    });
+  }),
+  module(
+      'Custom converts can be provided via environment/config',
+      function() {
+        class Scissor extends EmberObject {
+          feet;
 
-test('kilometers to meters', function(assert) {
-  assert.equal(convertUnit(2.5, 'kilometers', 'meters'), 2500);
-});
+          @convertUnit('feet', 'feet', 'TEU')
+          TEU;
+        }
 
-test('feet to teu', function(assert) {
-  assert.equal(convertUnit(200, 'feet', 'teu'), 10);
-});
+        test('Get converted', function(assert) {
+          this.owner.resolveRegistration('config:environment').computedConvertUnit = {
+            customConversions: [
+              {
+                from: 'ft',
+                to:   'TEU',
+                convert(value) {
+                  return value / 20;
+                }
+              }
+            ]
+          };
 
-test('teu to feet', function(assert) {
-  assert.equal(convertUnit(10, 'teu', 'feet'), 200);
-});
+          let scissor = Scissor.create({ feet: 40 });
+          setOwner(scissor, this.owner);
 
-test('milliseconds to seconds', function(assert) {
-  assert.equal(convertUnit(2500, 'milliseconds', 'seconds'), 2.5);
-});
+          assert.equal(scissor.get('TEU'), 2);
+        });
 
-test('milliseconds to minutes', function(assert) {
-  assert.equal(convertUnit(150000, 'milliseconds', 'minutes'), 2.5);
-});
+        test('Set converted', function(assert) {
+          this.owner.resolveRegistration('config:environment').computedConvertUnit = {
+            customConversions: [
+              {
+                from: 'TEU',
+                to:   'ft',
+                convert(value) {
+                  return value * 20;
+                }
+              }
+            ]
+          };
 
-test('milliseconds to hours', function(assert) {
-  assert.equal(convertUnit(9000000, 'milliseconds', 'hours'), 2.5);
-});
+          let scissor = Scissor.create({ feet: 20 });
+          setOwner(scissor, this.owner);
 
-test('seconds to milliseconds', function(assert) {
-  assert.equal(convertUnit(2.5, 'seconds', 'milliseconds'), 2500);
-});
-
-test('seconds to minutes', function(assert) {
-  assert.equal(convertUnit(150, 'seconds', 'minutes'), 2.5);
-});
-
-test('seconds to hours', function(assert) {
-  assert.equal(convertUnit(9000, 'seconds', 'hours'), 2.5);
-});
-
-test('minutes to milliseconds', function(assert) {
-  assert.equal(convertUnit(2.5, 'minutes', 'milliseconds'), 150000);
-});
-
-test('minutes to seconds', function(assert) {
-  assert.equal(convertUnit(2.5, 'minutes', 'seconds'), 150);
-});
-
-test('minutes to hours', function(assert) {
-  assert.equal(convertUnit(150, 'minutes', 'hours'), 2.5);
-});
-
-test('hours to milliseconds', function(assert) {
-  assert.equal(convertUnit(2.5, 'hours', 'milliseconds'), 9000000);
-});
-
-test('hours to seconds', function(assert) {
-  assert.equal(convertUnit(2.5, 'hours', 'seconds'), 9000);
-});
-
-test('hours to minutes', function(assert) {
-  assert.equal(convertUnit(2.5, 'hours', 'minutes'), 150);
-});
-
-test('Kilos to Tons', function(assert) {
-  assert.equal(convertUnit(2500, 'kilos', 'tons'), 2.5);
-});
-
-test('Tons to Kilos', function(assert) {
-  assert.equal(convertUnit(2.5, 'tons', 'kilos'), 2500);
+          scissor.set('TEU', 2);
+          assert.equal(scissor.get('feet'), 40);
+        });
+      }
+  );
 });

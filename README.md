@@ -1,45 +1,93 @@
-# ember-railio-convert-unit
+ember-computed-convert-unit
+==============================================================================
 
-An Ember addon for converting units.
+Enables convert unit as a computed property 
 
-## Install
 
-In your application's directory:
+Installation
+------------------------------------------------------------------------------
 
-```sh
-$ ember install ember-railio-convert-unit
+```
+ember install ember-computed-convert-unit
 ```
 
-## Usage
+Usage
+------------------------------------------------------------------------------
 
-### Available units
-These units can be used to pass as fromUnit and toUnit (second and third arguments).
-
-| Unit group  | Available units |
-| ----------- | --------------- |
-| Weights     | *kilos, tons* |
-| Metrics     | *feet, teu* |
-| Metrics     | *millimeters, centimeters, meters, kilometers* |
-| Time        | *milliseconds, seconds, minutes, hours* |
-
-### Use as a function
+ConvertUnit is a computed property that you can use in the same way as you normally would do. It works for both 'classic' Ember and Ember Octane. You can both use the abbreviation and the full name of a type.
 ```js
-import convertUnit from 'ember-railio-convert-unit';
+import Model       from '@ember-data/model';
+import convertUnit from 'ember-computed-convert-unit'
 
-//            convertUnit(value, fromUnit, toUnit)
-let meters  = convertUnit(2, 'kilometers', 'meters');
-let minutes = convertUnit(2, 'hours', 'minutes');
+export default Model.extend({
+  lengthInMilimeters:  attr('number'),
+  lengthInCentimeters: convertUnit('lengthInMilimeters', 'milimeters', 'centimeters')
+})
 ```
-
-### Use as a computed property
 ```js
-import convertUnitProperty from 'ember-railio-convert-unit';
+import Model       from '@ember-data/model';
+import convertUnit from 'ember-computed-convert-unit'
 
-export default EmberObject.extend({
-  //                 convertUnitProperty(propertyName, fromUnit, toUnit)
-  lengthInMeters:    convertUnitProperty('lengthInKm', 'kilometers', 'meters'),
-  durationInMinutes: convertUnitProperty('duration', 'seconds', 'minutes')
-});
+export default class Paper extends Model {
+  @attr('number')
+  lengthInMilimeters;
+
+  @convertUnit('lengthInMilimeters', 'milimeters', 'centimeters')
+  lengthInCentimeters;
+}
 ```
+Available conversions
+------------------------------------------------------------------------------
+This addons uses a Javascript library called convert-units.
+Check https://github.com/ben-ng/convert-units for a list of available conversions.
 
-For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
+Custom convertions
+------------------------------------------------------------------------------
+It's possible to add (or "overwrite") a conversion as shown in the example below. If you add a conversion for a type that's included in the library, you must use the abbreviation. In the example below feet/ft already exists as a type and TEU doesn't.
+```js
+// config/enviroment.js
+module.exports = function(environment) {
+  let ENV = {
+    computedConvertUnit: {
+      customConversions: [
+        {
+          from: 'ft',
+          to:   'TEU',
+          convert(value) {
+            return value / 20;
+          }
+        },
+        {
+          from: 'TEU',
+          to:   'ft',
+          convert(value) {
+            return value * 20;
+          }
+        }
+      ]
+    }
+  }
+}
+
+// models/rock.js
+import Model       from '@ember-data/model';
+import convertUnit from 'ember-computed-convert-unit'
+
+export default class Rock extends Model {
+  @attr('number')
+  lengthInFeet;
+
+  @convertUnit('lengthInMilimeters', 'feet', 'TEU')
+  volumeInTeu;
+}
+```
+Contributing
+------------------------------------------------------------------------------
+
+See the [Contributing](CONTRIBUTING.md) guide for details.
+
+
+License
+------------------------------------------------------------------------------
+
+This project is licensed under the [MIT License](LICENSE.md).

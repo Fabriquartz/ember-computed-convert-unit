@@ -1,90 +1,54 @@
-import Ember from 'ember';
+import { getOwner }           from '@ember/application';
+import { get, set, computed } from '@ember/object';
+import convert                from 'convert-units';
 
-const { Error } = Ember;
+function formatType(type) {
+  let convertObject = convert()
+    .list()
+    .find(({ singular, plural }) => {
+      return (
+        singular.toLowerCase() === type.toLowerCase() ||
+        plural.toLowerCase() === type.toLowerCase()
+      );
+    });
 
-const MILLIMETERS = 1;
-const CENTIMETERS = 10 * MILLIMETERS;
-const METERS      = 100 * CENTIMETERS;
-const KILOMETERS  = 1000 * METERS;
+  return convertObject ? convertObject.abbr : type;
+}
 
-const MILLISECONDS = 1;
-const SECONDS      = 1000 * MILLISECONDS;
-const MINUTES      = 60 * SECONDS;
-const HOURS        = 60 * MINUTES;
+function _convert(scope, value, orginalType, convertType) {
+  let config = getOwner(scope).resolveRegistration('config:environment');
 
-const KILOS = 1;
-const TONS  = 1000 * KILOS;
+  let customConvert = (
+    (config &&
+      config.computedConvertUnit &&
+      config.computedConvertUnit.customConversions) ||
+    []
+  ).find(({ from, to }) => {
+    return from === orginalType && to === convertType;
+  });
 
-const FEET = 1;
-const TEU  = 20 * FEET;
+  return customConvert
+    ? customConvert.convert(value)
+    : convert(value)
+        .from(orginalType)
+        .to(convertType);
+}
 
-const CONVERSION_MAP = {
-  /* eslint-disable key-spacing */
-  // Please sort on alphabetic order, thank you!
-  'centimeters': {
-    'kilometers':    (value) => value * CENTIMETERS / KILOMETERS,
-    'meters':        (value) => value * CENTIMETERS / METERS,
-    'millimeters':   (value) => value * CENTIMETERS
-  },
-  'feet': {
-    'teu':           (value) => value / TEU
-  },
-  'hours': {
-    'milliseconds':  (value) => value * HOURS,
-    'minutes':       (value) => value * HOURS / MINUTES,
-    'seconds':       (value) => value * HOURS / SECONDS
-  },
-  'kilometers': {
-    'centimeters':   (value) => value * KILOMETERS / CENTIMETERS,
-    'meters':        (value) => value * KILOMETERS / METERS,
-    'millimeters':   (value) => value * KILOMETERS
-  },
-  'kilos': {
-    'tons':          (value) => value / TONS
-  },
-  'meters': {
-    'centimeters':   (value) => value * METERS / CENTIMETERS,
-    'kilometers':    (value) => value * METERS / KILOMETERS,
-    'millimeters':   (value) => value * METERS
-  },
-  'millimeters': {
-    'centimeters':   (value) => value / CENTIMETERS,
-    'kilometers':    (value) => value / KILOMETERS,
-    'meters':        (value) => value / METERS
-  },
-  'milliseconds': {
-    'hours':         (value) => value / HOURS,
-    'minutes':       (value) => value / MINUTES,
-    'seconds':       (value) => value / SECONDS
-  },
-  'minutes': {
-    'hours':         (value) => value * MINUTES / HOURS,
-    'milliseconds':  (value) => value * MINUTES,
-    'seconds':       (value) => value * MINUTES / SECONDS
-  },
-  'seconds': {
-    'milliseconds':  (value) => value * SECONDS,
-    'minutes':       (value) => value * SECONDS / MINUTES,
-    'hours':         (value) => value * SECONDS / HOURS
-  },
-  'teu': {
-    'feet':          (value) => value * TEU
-  },
-  'tons': {
-    'kilos':         (value) => value * TONS
-  }
-  /* eslint-enable key-spacing */
-};
+export default function(propertyPath, orginalType, convertType) {
+  orginalType = formatType(orginalType);
+  convertType = formatType(convertType);
 
-export default function(value, fromUnit, toUnit) {
-  if (value == null) { return value; }
-  if (typeof value !== 'number') {
-    throw new Error('Input to conversion function must be a number');
-  }
+  return computed(propertyPath, {
+    get() {
+      let value = get(this, propertyPath);
+      return _convert(this, value, orginalType, convertType);
+    },
 
-  if (CONVERSION_MAP[fromUnit] && CONVERSION_MAP[fromUnit][toUnit]) {
-    return CONVERSION_MAP[fromUnit][toUnit](value);
-  } else {
-    throw new Error(`Conversion from ${fromUnit} to ${toUnit} not available`);
-  }
+    set(key, value) {
+      let convertedValue = _convert(this, value, convertType, orginalType);
+      set(this, propertyPath, convertedValue);
+
+      return value;
+    }
+  });
 }
