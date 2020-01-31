@@ -14,7 +14,8 @@ ember install ember-computed-convert-unit
 Usage
 ------------------------------------------------------------------------------
 
-ConvertUnit is a computed property that you can use in the same way as you normally would do. It works for both 'classic' Ember and Ember Octane. You can both use the abbreviation and the full name of a type.
+convertUnit is a computed property that you can use in the same way as you normally would do. It works for both 'classic' Ember and Ember Octane. To indicate a unit, you can use both the full name and the abbreviation of a unit. (e.g. 'kg'/'kilograms', 'ft'/'feet')
+
 ```js
 import Model       from '@ember-data/model';
 import convertUnit from 'ember-computed-convert-unit'
@@ -38,8 +39,7 @@ export default class Paper extends Model {
 ```
 Available conversions
 ------------------------------------------------------------------------------
-This addons uses a Javascript library called convert-units.
-Check https://github.com/ben-ng/convert-units for a list of available conversions.
+This addon uses [convert-units](https://github.com/ben-ng/convert-units) to perform the actual conversion. Check its documentation for available conversions.
 
 Custom convertions
 ------------------------------------------------------------------------------
