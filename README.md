@@ -3,6 +3,9 @@ ember-computed-convert-unit
 
 Enables convert unit as a computed property 
 
+Compatibility
+------------------------------------------------------------------------------
+ember-computed-convert-unit is made for ember 3.12 and above, but probably works for older versions too.
 
 Installation
 ------------------------------------------------------------------------------
