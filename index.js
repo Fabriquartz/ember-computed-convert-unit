@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-railio-convert-unit',
+  name: 'ember-computed-convert-unit',
 
   included() {
     this._super.included.apply(this, arguments);
@@ -11,6 +11,6 @@ module.exports = {
       using: [
         { transformation: 'cjs', as: 'convert-units' }
       ]
-    });    
+    });
   }
 };
