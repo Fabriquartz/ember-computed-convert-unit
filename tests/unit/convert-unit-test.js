@@ -1,7 +1,7 @@
 import { setOwner }     from '@ember/application';
 import EmberObject      from '@ember/object';
+import convertUnit      from 'ember-computed-convert-unit';
 import { setupTest }    from 'ember-qunit';
-import convertUnit      from 'ember-railio-convert-unit';
 import { module, test } from 'qunit';
 
 module('Unit | Convert unit', function(hooks) {
