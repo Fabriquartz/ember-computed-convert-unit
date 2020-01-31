@@ -13,24 +13,21 @@ module.exports = {
     lottie:      true,
     ActionCable: true
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:ember-suave/recommended'
-  ],
-  env: {
+  extends: ['eslint:recommended', 'plugin:ember-suave/recommended'],
+  env:     {
     embertest: true,
     browser:   true,
     es6:       true
   },
   plugins: ['align-assignments', 'arca', 'ember'],
   rules:   {
-    'align-assignments/align-assignments': ['warn', { 'requiresOnly': false } ],
-    'arca/import-align':                   'error',
-    'arca/newline-after-import-section':   'error',
-    'arca/melted-constructs':              'error',
-    'arca/import-ordering':                'error',
-    'array-bracket-spacing':               'off',
-    'camelcase':                           ['error'],
+    'align-assignments/align-assignments':             ['warn', { requiresOnly: false }],
+    'arca/import-align':                               'error',
+    'arca/newline-after-import-section':               'error',
+    'arca/melted-constructs':                          'error',
+    'arca/import-ordering':                            'error',
+    'array-bracket-spacing':                           'off',
+    camelcase:                                         ['error'],
     'ember/no-jquery':                                 'warn',
     'ember/use-ember-data-rfc-395-imports':            ['error'],
     'ember/new-module-imports':                        ['error'],
@@ -60,18 +57,29 @@ module.exports = {
     'object-curly-spacing': ['error', 'always'],
 
     'no-console':  ['error', { allow: ['error'] }],
-    'quotes':      ['error', 'single', { allowTemplateLiterals: true }],
+    quotes:        ['error', 'single', { allowTemplateLiterals: true }],
     'brace-style': ['error', '1tbs', { allowSingleLine: true }],
-    'indent':      ['error', 2, { FunctionExpression:  { body: 1, parameters: 'first' },
-                                  FunctionDeclaration: { body: 1, parameters: 'first' },
-                                  CallExpression:      { arguments: 'off' },
-                                  MemberExpression:    'off',
-                                  ObjectExpression:    'off',
-                                  ImportDeclaration:   'first',
-                                  ArrayExpression:     'first',
-                                  ignoredNodes:        ['ConditionalExpression'] }],
-    'key-spacing': ['error', { multiLine: { beforeColon: false },
-                               align:     { beforeColon: false, on: 'value' } }],
+    indent:        [
+      'error',
+      2,
+      {
+        FunctionExpression:  { body: 1, parameters: 'first' },
+        FunctionDeclaration: { body: 1, parameters: 'first' },
+        CallExpression:      { arguments: 'off' },
+        MemberExpression:    'off',
+        ObjectExpression:    'off',
+        ImportDeclaration:   'first',
+        ArrayExpression:     'first',
+        ignoredNodes:        ['ConditionalExpression']
+      }
+    ],
+    'key-spacing': [
+      'error',
+      {
+        multiLine: { beforeColon: false },
+        align:     { beforeColon: false, on: 'value' }
+      }
+    ],
     'max-len': ['error', { code: 90, ignorePattern: '^\\s*(import|test)' }],
 
     // 'multiline-ternary':       ['error', 'never'],
@@ -100,13 +108,17 @@ module.exports = {
         node:    true
       },
       plugins: ['node'],
-      rules:   Object.assign({}, require('eslint-plugin-node').configs.recommended.rules, {
-        // add your custom rules and overrides for node files here
+      rules:   Object.assign(
+        {},
+        require('eslint-plugin-node').configs.recommended.rules,
+        {
+          // add your custom rules and overrides for node files here
 
-        // this can be removed once the following is fixed
-        // https://github.com/mysticatea/eslint-plugin-node/issues/77
-        'node/no-unpublished-require': 'off'
-      })
+          // this can be removed once the following is fixed
+          // https://github.com/mysticatea/eslint-plugin-node/issues/77
+          'node/no-unpublished-require': 'off'
+        }
+      )
     }
   ]
 };
