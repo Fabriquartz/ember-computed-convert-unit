@@ -1,15 +1,17 @@
 {
   "name": "ember-computed-convert-unit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Use convert unit as computed property or decorator",
   "keywords": [
     "ember-addon"
   ],
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fabriquartz/ember-computed-convert-unit.git"
+  },
   "license": "MIT",
-  "author": "",
+  "author": "Fabriquartz",
   "directories": {
-    "doc": "doc",
     "test": "tests"
   },
   "scripts": {
@@ -65,5 +67,10 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  }
+  },
+  "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/Fabriquartz/ember-computed-convert-unit/issues"
+  },
+  "homepage": "https://github.com/Fabriquartz/ember-computed-convert-unit#readme"
 }
