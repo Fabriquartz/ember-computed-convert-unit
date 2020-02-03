@@ -48,29 +48,24 @@ Custom convertions
 ------------------------------------------------------------------------------
 It's possible to add (or "overwrite") a conversion as shown in the example below. If you add a conversion for a type that's included in the library, you must use the abbreviation. In the example below feet/ft already exists as a type and TEU doesn't.
 ```js
-// config/enviroment.js
-module.exports = function(environment) {
-  let ENV = {
-    computedConvertUnit: {
-      customConversions: [
-        {
-          from: 'ft',
-          to:   'TEU',
-          convert(value) {
-            return value / 20;
-          }
-        },
-        {
-          from: 'TEU',
-          to:   'ft',
-          convert(value) {
-            return value * 20;
-          }
-        }
-      ]
+// utils/computed-convert-unit.js
+export default [
+  {
+    from: 'ft',
+    to:   'TEU',
+    convert(value) {
+      return value / 20;
+    }
+  },
+  {
+    from: 'TEU',
+    to:   'ft',
+    convert(value) {
+      return value * 20;
     }
   }
-}
+];
+
 
 // models/rock.js
 import Model       from '@ember-data/model';
