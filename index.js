@@ -13,11 +13,5 @@ module.exports = {
         { transformation: 'cjs', as: 'convert-units' }
       ]
     });
-  },
-
-  afterInstall() {
-    return this.addAddonToProject({
-      packages: [{ name: 'ember-cli-cjs-transform' }]
-    });
   }
 };
