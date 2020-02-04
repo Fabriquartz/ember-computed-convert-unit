@@ -16,14 +16,10 @@ function formatType(type) {
 }
 
 function _convert(scope, value, orginalType, convertType) {
-  let config = getOwner(scope).resolveRegistration('config:environment');
+  let conversions =
+    getOwner(scope).resolveRegistration('util:computed-convert-unit') || [];
 
-  let customConvert = (
-    (config &&
-      config.computedConvertUnit &&
-      config.computedConvertUnit.customConversions) ||
-    []
-  ).find(({ from, to }) => {
+  let customConvert = conversions.find(({ from, to }) => {
     return from === orginalType && to === convertType;
   });
 

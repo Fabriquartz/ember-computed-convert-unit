@@ -82,8 +82,8 @@ module('Unit | Convert unit', function(hooks) {
         }
 
         test('Get converted', function(assert) {
-          this.owner.resolveRegistration('config:environment').computedConvertUnit = {
-            customConversions: [
+          this.owner.resolveRegistration = () => {
+            return [
               {
                 from: 'ft',
                 to:   'TEU',
@@ -91,7 +91,7 @@ module('Unit | Convert unit', function(hooks) {
                   return value / 20;
                 }
               }
-            ]
+            ];
           };
 
           let scissor = Scissor.create({ feet: 40 });
@@ -101,19 +101,18 @@ module('Unit | Convert unit', function(hooks) {
         });
 
         test('Set converted', function(assert) {
-          this.owner.resolveRegistration('config:environment').computedConvertUnit = {
-            customConversions: [
+          this.owner.resolveRegistration = () => {
+            return [
               {
-                from: 'TEU',
-                to:   'ft',
-                convert(value) {
-                  return value * 20;
-                }
+                  from: 'TEU',
+                  to:   'ft',
+                  convert(value) {
+                    return value * 20;
+                  }
               }
-            ]
+            ];
           };
-
-          let scissor = Scissor.create({ feet: 20 });
+          let scissor                    = Scissor.create({ feet: 20 });
           setOwner(scissor, this.owner);
 
           scissor.set('TEU', 2);
