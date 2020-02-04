@@ -71,6 +71,44 @@ module('Unit | Convert unit', function(hooks) {
       assert.equal(paper.get('millimeters'), 48);
     });
   }),
+
+  module('Returns value when value is blank', function() {
+    class Paper extends EmberObject {
+        millimeters;
+
+        @convertUnit('millimeters', 'millimeters', 'cm')
+        centimeters;
+    }
+
+    test('Undefined', function(assert) {
+      let paper = Paper.create({ millimeters: undefined });
+      setOwner(paper, this.owner);
+
+      assert.equal(paper.get('centimeters'), undefined);
+    });
+
+    test('Null', function(assert) {
+      let paper = Paper.create({ millimeters: null });
+      setOwner(paper, this.owner);
+
+      assert.equal(paper.get('centimeters'), null);
+    });
+
+    test('False', function(assert) {
+      let paper = Paper.create({ millimeters: false });
+      setOwner(paper, this.owner);
+
+      assert.equal(paper.get('centimeters'), 0);
+    });
+
+    test('Zero', function(assert) {
+      let paper = Paper.create({ millimeters: 0 });
+      setOwner(paper, this.owner);
+
+      assert.equal(paper.get('centimeters'), 0);
+    });
+  }),
+
   module(
       'Custom converts can be provided via environment/config',
       function() {

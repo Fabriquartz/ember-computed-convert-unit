@@ -1,5 +1,6 @@
 import { getOwner }           from '@ember/application';
 import { get, set, computed } from '@ember/object';
+import { isBlank }            from '@ember/utils';
 import convert                from 'convert-units';
 
 function formatType(type) {
@@ -16,6 +17,10 @@ function formatType(type) {
 }
 
 function _convert(scope, value, orginalType, convertType) {
+  if (isBlank(value)) {
+    return value;
+  }
+
   let conversions =
     getOwner(scope).resolveRegistration('util:computed-convert-unit') || [];
 

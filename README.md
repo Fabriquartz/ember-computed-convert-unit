@@ -44,7 +44,7 @@ Available conversions
 ------------------------------------------------------------------------------
 This addon uses [convert-units](https://github.com/ben-ng/convert-units) to perform the actual conversion. Check its documentation for available conversions.
 
-Custom convertions
+Custom conversions
 ------------------------------------------------------------------------------
 It's possible to add (or "overwrite") a conversion as shown in the example below. If you add a conversion for a type that's included in the library, you must use the abbreviation. In the example below feet/ft already exists as a type and TEU doesn't.
 ```js
