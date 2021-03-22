@@ -1,7 +1,11 @@
+[![Build Status](https://travis-ci.com/Fabriquartz/ember-computed-convert-unit.svg?branch=master)](https://travis-ci.com/Fabriquartz/ember-computed-convert-unit)
+[![Ember Observer Score](https://emberobserver.com/badges/ember-computed-convert-unit.svg)](https://emberobserver.com/addons/ember-computed-convert-unit)
+[![Maintainability](https://api.codeclimate.com/v1/badges/858b6cc9bbf3cc61a2e6/maintainability)](https://codeclimate.com/github/Fabriquartz/ember-computed-convert-unit/maintainability)
+
 ember-computed-convert-unit
 ==============================================================================
 
-Enables convert unit as a computed property
+Provides unit conversion as a computed property wrapper around [convert-units](https://github.com/ben-ng/convert-units)
 
 Compatibility
 ------------------------------------------------------------------------------
