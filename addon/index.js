@@ -16,7 +16,10 @@ function formatType(type) {
   return convertObject ? convertObject.abbr : type;
 }
 
-function _convert(scope, value, orginalType, convertType) {
+export function _convert(scope, value, orginalType, convertType) {
+  orginalType = formatType(orginalType);
+  convertType = formatType(convertType);
+
   if (isBlank(value)) {
     return value;
   }
@@ -36,9 +39,6 @@ function _convert(scope, value, orginalType, convertType) {
 }
 
 export default function(propertyPath, orginalType, convertType) {
-  orginalType = formatType(orginalType);
-  convertType = formatType(convertType);
-
   return computed(propertyPath, {
     get() {
       let value = get(this, propertyPath);
