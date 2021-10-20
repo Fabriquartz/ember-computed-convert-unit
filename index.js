@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-computed-convert-unit',
+  name: require('./package').name,
 
   included() {
     this._super.included.apply(this, arguments);
