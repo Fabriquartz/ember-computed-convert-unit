@@ -1,7 +1,7 @@
-import { getOwner }           from '@ember/application';
+import { getOwner } from '@ember/application';
 import { get, set, computed } from '@ember/object';
-import { isBlank }            from '@ember/utils';
-import convert                from 'convert-units';
+import { isBlank } from '@ember/utils';
+import convert from 'convert-units';
 
 function formatType(type) {
   let convertObject = convert()
@@ -33,12 +33,10 @@ export function _convert(scope, value, orginalType, convertType) {
 
   return customConvert
     ? customConvert.convert(value)
-    : convert(value)
-        .from(orginalType)
-        .to(convertType);
+    : convert(value).from(orginalType).to(convertType);
 }
 
-export default function(propertyPath, orginalType, convertType) {
+export default function (propertyPath, orginalType, convertType) {
   return computed(propertyPath, {
     get() {
       let value = get(this, propertyPath);
@@ -50,6 +48,6 @@ export default function(propertyPath, orginalType, convertType) {
       set(this, propertyPath, convertedValue);
 
       return value;
-    }
+    },
   });
 }

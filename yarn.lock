@@ -6999,25 +6999,6 @@ eslint-config-prettier@^8.3.0:
   resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz#f7471b20b6fe8a9a9254cc684454202886a2dd7a"
   integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
-eslint-plugin-align-assignments@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/eslint-plugin-align-assignments/-/eslint-plugin-align-assignments-1.1.2.tgz#83e1a8a826d4adf29e82b52d0bb39c88b301b576"
-  integrity sha512-I1ZJgk9EjHfGVU9M2Ex8UkVkkjLL5Y9BS6VNnQHq79eHj2H4/Cgxf36lQSUTLgm2ntB03A2NtF+zg9fyi5vChg==
-
-eslint-plugin-arca@^0.9.5:
-  version "0.9.5"
-  resolved "https://registry.npmjs.org/eslint-plugin-arca/-/eslint-plugin-arca-0.9.5.tgz#69874ab364e9aa284a182df607d302049365a00e"
-  integrity sha512-KQHYhGotQ4abeGyQnSq2EPLB+fz4kXnpkXESLL5d6gaiXWUpyCVxXLKgI3tFoZwjjtXniNxOkaUsKHYEWiZotQ==
-  dependencies:
-    requireindex "~1.1.0"
-
-eslint-plugin-ember-suave@~1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/eslint-plugin-ember-suave/-/eslint-plugin-ember-suave-1.0.0.tgz#ea7d232a126562dcd8b1ee3aa2700ac3b626e514"
-  integrity sha1-6n0jKhJlYtzYse46onAKw7Ym5RQ=
-  dependencies:
-    requireindex "~1.1.0"
-
 eslint-plugin-ember@^10.5.4:
   version "10.5.7"
   resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-10.5.7.tgz#132dcd139fc9e830b707910d1ee4a458b83ab9d4"
@@ -12487,11 +12468,6 @@ requireindex@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.2.0.tgz#3463cdb22ee151902635aa6c9535d4de9c2ef1ef"
   integrity sha512-L9jEkOi3ASd9PYit2cwRfyppc9NoABujTP8/5gFcbERmo5jUoAKovIC3fsF17pkTnGsrByysqX+Kxd2OTNI1ww==
-
-requireindex@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/requireindex/-/requireindex-1.1.0.tgz#e5404b81557ef75db6e49c5a72004893fe03e162"
-  integrity sha1-5UBLgVV+91225JxacgBIk/4D4WI=
 
 requires-port@^1.0.0:
   version "1.0.0"

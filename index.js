@@ -1,4 +1,3 @@
-/* globals module */
 'use strict';
 
 module.exports = {
@@ -9,9 +8,7 @@ module.exports = {
     let app = this._findHost();
 
     app.import('node_modules/convert-units/lib/index.js', {
-      using: [
-        { transformation: 'cjs', as: 'convert-units' }
-      ]
+      using: [{ transformation: 'cjs', as: 'convert-units' }],
     });
-  }
+  },
 };
