@@ -11,8 +11,8 @@ Compatibility
 ------------------------------------------------------------------------------
 ember-computed-convert-unit is made for ember 3.12 and above, but probably works for older versions too.
 
-* Ember.js v3.20 or above
-* Ember CLI v3.20 or above
+* Ember.js v3.24 or above
+* Ember CLI v3.24 or above
 * Node.js v12 or above
 
 
